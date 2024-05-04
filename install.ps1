@@ -24,6 +24,9 @@ if (Test-Path "$env:ProgramFiles\Python$pythonVersion") {
     Write-Host "Failed to install Python $pythonVersion."
 }
 
+#install dependencies for pyautogui
+pip install pyautogui
+
 # Remove the installer file
 Remove-Item $installerPath -Force
 
