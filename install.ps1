@@ -1,5 +1,32 @@
+# Define the Python version to check
+$pythonVersionToCheck = "3.12.3"
+
+# Define the download URL for the Python installer
+$pythonDownloadPageUrl = "https://www.python.org/downloads/"
+
+# Download the HTML content of the Python download page
+try {
+    $downloadPageContent = Invoke-WebRequest -Uri $pythonDownloadPageUrl -UseBasicParsing
+} catch {
+    Write-Host "Failed to download Python download page. Error: $_"
+    exit 1
+}
+
+# Check if the Python version is available on the download page
+if ($downloadPageContent.Content -match $pythonVersionToCheck) {
+    Write-Host "Python version $pythonVersionToCheck is available for download."
+} else {
+    Write-Host "Python version $pythonVersionToCheck is not available for download."
+}
+
+
 # Install Git Bash using Windows Package Manager (winget)
-winget install --id Git.Git -e --source winget
+$wingetInstallResult = winget install --id Git.Git -e --source winget
+if ($wingetInstallResult.ExitCode -eq 0) {
+    Write-Host "Git Bash installed successfully."
+} else {
+    Write-Host "Failed to install Git Bash. Error code: $($wingetInstallResult.ExitCode)"
+}
 
 # Define the Python version and architecture
 $pythonVersion = "3.12.3"
@@ -12,26 +39,53 @@ $pythonInstallerUrl = "https://www.python.org/ftp/python/$pythonVersion/python-$
 $installerPath = "$env:TEMP\python-$pythonVersion-$architecture.exe"
 
 # Download the Python installer
-Invoke-WebRequest -Uri $pythonInstallerUrl -OutFile $installerPath
-
-# Run the installer with administrative privileges
-Start-Process -FilePath $installerPath -ArgumentList "/quiet", "InstallAllUsers=1", "PrependPath=1" -Verb RunAs -Wait
-
-# Check if Python installation was successful
-if (Test-Path "$env:ProgramFiles\Python$pythonVersion") {
-    Write-Host "Python $pythonVersion $architecture-bit installed successfully."
-} else {
-    Write-Host "Failed to install Python $pythonVersion."
+try {
+    Invoke-WebRequest -Uri $pythonInstallerUrl -OutFile $installerPath
+    Write-Host "Python installer downloaded successfully."
+} catch {
+    Write-Host "Failed to download Python installer. Error: $_"
+    exit 1
 }
 
-#install dependencies for pyautogui
-pip install pyautogui
+# Run the installer with administrative privileges
+try {
+    Start-Process -FilePath $installerPath -ArgumentList "/quiet", "InstallAllUsers=1", "PrependPath=1" -Verb RunAs -Wait
+    Write-Host "Python installed successfully."
+} catch {
+    Write-Host "Failed to install Python. Error: $_"
+    exit 1
+}
+
+# Install dependencies for pyautogui
+try {
+    pip install pyautogui
+    Write-Host "pyautogui installed successfully."
+} catch {
+    Write-Host "Failed to install pyautogui. Error: $_"
+    exit 1
+}
 
 # Remove the installer file
-Remove-Item $installerPath -Force
+try {
+    Remove-Item $installerPath -Force
+    Write-Host "Python installer file removed."
+} catch {
+    Write-Host "Failed to remove Python installer file. Error: $_"
+}
 
 # Clone the Git repository
-git clone https://github.com/Rkattappa/Rkattappa.git
+$gitCloneResult = git clone https://github.com/Rkattappa/Rkattappa.git
+if ($gitCloneResult.ExitCode -eq 0) {
+    Write-Host "Git repository cloned successfully."
+} else {
+    Write-Host "Failed to clone Git repository. Error code: $($gitCloneResult.ExitCode)"
+}
 
 # Change directory to the cloned repository directory
-cd Rkattappa
+try {
+    Set-Location -Path "Rkattappa"
+    Write-Host "Changed directory to the cloned repository directory."
+} catch {
+    Write-Host "Failed to change directory. Error: $_"
+    exit 1
+}
