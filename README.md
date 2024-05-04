@@ -5,6 +5,10 @@
 - 📫 How to reach me ...whitewalker1056@gmail.com
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
+Notable: follow payton installetion directory
+verify your data files directory
+Match path of the @echo.bat file path
+Match path of the echo.ps1 file path
 
 <!---
 Rkattappa/Rkattappa is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
