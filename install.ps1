@@ -1,3 +1,6 @@
+# Install Git Bash using Windows Package Manager (winget)
+winget install --id Git.Git -e --source winget
+
 # Define the Python version and architecture
 $pythonVersion = "3.10.0"
 $architecture = "64-bit"  # or "32-bit" if needed
@@ -23,3 +26,9 @@ if (Test-Path "$env:ProgramFiles\Python$pythonVersion") {
 
 # Remove the installer file
 Remove-Item $installerPath -Force
+
+# Clone the Git repository
+git clone https://github.com/Rkattappa/Rkattappa.git
+
+# Change directory to the cloned repository directory
+cd Rkattappa
