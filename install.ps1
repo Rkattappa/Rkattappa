@@ -2,7 +2,7 @@
 winget install --id Git.Git -e --source winget
 
 # Define the Python version and architecture
-$pythonVersion = "3.10.0"
+$pythonVersion = "3.12.3"
 $architecture = "64-bit"  # or "32-bit" if needed
 
 # Define the download URL for the Python installer
