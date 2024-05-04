@@ -17,15 +17,17 @@ if ($downloadPageContent.Content -match $pythonVersionToCheck) {
     Write-Host "Python version $pythonVersionToCheck is available for download."
 } else {
     Write-Host "Python version $pythonVersionToCheck is not available for download."
+    exit 1
 }
 
-
+# Continue with the rest of the installation and setup steps...
 # Install Git Bash using Windows Package Manager (winget)
 $wingetInstallResult = winget install --id Git.Git -e --source winget
 if ($wingetInstallResult.ExitCode -eq 0) {
     Write-Host "Git Bash installed successfully."
 } else {
     Write-Host "Failed to install Git Bash. Error code: $($wingetInstallResult.ExitCode)"
+    exit 1
 }
 
 # Define the Python version and architecture
@@ -79,6 +81,7 @@ if ($gitCloneResult.ExitCode -eq 0) {
     Write-Host "Git repository cloned successfully."
 } else {
     Write-Host "Failed to clone Git repository. Error code: $($gitCloneResult.ExitCode)"
+    exit 1
 }
 
 # Change directory to the cloned repository directory
