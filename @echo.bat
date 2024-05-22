@@ -1,10 +1,10 @@
 @echo off
 
 REM Set the Python installation directory path
-set PYTHON_DIR=C:\Users\kattappa\AppData\Local\Programs\Python\Python312
+set PYTHON_DIR=C:\Users\rishu\AppData\Local\Programs\Python\Python312
 
 REM Set the Python script path
-set SCRIPT_PATH=C:\Users\kattappa\Desktop\mouse_and_scroll.py
+set SCRIPT_PATH=C:\Rkattappa\mouse_and_scroll.py
 
 REM Check if Python installation directory exists
 if not exist "%PYTHON_DIR%" (
