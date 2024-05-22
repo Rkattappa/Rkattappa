@@ -1,5 +1,5 @@
 # Define the path to the batch file
-$batchFilePath = "C:\Users\kattappa\Desktop\@echo.bat"
+$batchFilePath = "C:\Rkattappa\@echo.bat"
 
 # Check if the batch file exists
 if (-not (Test-Path $batchFilePath)) {
