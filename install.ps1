@@ -32,7 +32,7 @@ if ($wingetInstallResult.ExitCode -eq 0) {
 
 # Define the Python version and architecture
 $pythonVersion = "3.12.3"
-$architecture = "64-bit"  # or "32-bit" if needed
+$architecture = "amd64" 
 
 # Define the download URL for the Python installer
 $pythonInstallerUrl = "https://www.python.org/ftp/python/$pythonVersion/python-$pythonVersion-amd64.exe"
