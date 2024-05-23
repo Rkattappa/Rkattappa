@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Common entry point script to detect platform and run the appropriate script
+
+if [ "$(uname)" = "Linux" ]; then
+    echo "Running on Linux"
+    bash install.sh
+elif [ "$(uname)" = "Darwin" ]; then
+    echo "Running on macOS"
+    bash install.sh
+elif [ "$(uname)" = "MINGW64_NT" ] || [ "$(uname)" = "CYGWIN_NT" ]; then
+    echo "Running on Windows (using Git Bash)"
+    pwsh install.ps1
+elif [ "$(uname -o)" = "Msys" ]; then
+    echo "Running on Windows (using Git Bash)"
+    pwsh install.ps1
+else
+    echo "Unsupported platform"
+    exit 1
+fi
